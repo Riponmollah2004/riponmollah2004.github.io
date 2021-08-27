@@ -1,2 +1,1 @@
-# riponmollah2004.github.io
-My Personal Github Website 
+<meta http-equiv="refresh" content="time; URL=index.html" />
