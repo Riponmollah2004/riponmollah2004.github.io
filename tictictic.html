@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Bootstrap Example</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</head>
+<body>
+    <style>
+        html, body {
+            background: url(https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQKAz83TjftpamfM5hFPSBX93urvpwawRWokw&usqp=CAU) no-repeat center center fixed;
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+            -o-background-size: cover;
+            background-size: cover;
+        }
+        .grid-container {
+            display: grid;
+            grid-template-columns: auto auto auto;
+            background-color: #2196F3;
+            padding: 10px;
+        }
+        .grid-item {
+            background-color: rgba(255, 255, 255, 0.8);
+            border: 1px solid rgba(0, 0, 0, 0.8);
+            padding: 20px;
+            font-size: 70px;
+            text-align: center;
+        }
+
+    </style>
+    <div class="container mt-3">
+        <div class="grid-container">
+            <div class="grid-item" onClick="add(0)">
+                1
+            </div>
+            <div class="grid-item" onClick="add(1)">
+                2
+            </div>
+            <div class="grid-item" onClick="add(2)">
+                3
+            </div>
+            <div class="grid-item" onClick="add(3)">
+                4
+            </div>
+            <div class="grid-item" onClick="add(4)">
+                5
+            </div>
+            <div class="grid-item" onClick="add(5)">
+                6
+            </div>
+            <div class="grid-item" onClick="add(6)">
+                7
+            </div>
+            <div class="grid-item" onClick="add(7)">
+                8
+            </div>
+            <div class="grid-item" onClick="add(8)">
+                9
+            </div>
+        </div>
+        <h5 class="text-light mt-5"><a href="https://www.facebook.com/riponmollah2004"></a><center>© Mohammad Ripon</center></a></h5>
+    </div>
+    <script>
+        let output = false;
+        function check(x, y, z) {
+            column = document.getElementsByClassName("grid-item");
+            if (column[x].innerHTML == "O" && column[y].innerHTML == "O" && column[z].innerHTML == "O") {
+                return "machine";
+            }
+            if (column[x].innerHTML == "X" && column[y].innerHTML == "X" && column[z].innerHTML == "X") {
+                return "man";
+            }
+            return false;
+        }
+        function result(x, y, z) {
+            if (check(x, y, z) == "man") {
+                alert("Winner is man!");
+                return output = true;
+            } else if (check(x, y, z) == "machine") {
+                alert("Winner is machine!");
+                return output = true;
+            } else {
+                return false;
+            }
+        }
+        function winner() {
+            result(0, 1, 2);
+            result(3, 4, 5);
+            result(6, 7, 8);
+            result(0, 3, 6);
+            result(1, 4, 7);
+            result(2, 5, 8);
+            result(0, 4, 8);
+            result(2, 4, 6);
+        }
+        function machine() {
+            let column;
+            let arr = [0,
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8];
+            let rand;
+            let checked = [];
+            while (true) {
+                column = document.getElementsByClassName("grid-item");
+                rand = Math.floor(Math.random() * arr.length);
+                ran = Math.floor(Math.random() * rand);
+                if (column[ran].innerHTML != "O" && column[ran].innerHTML != "X") {
+                    column[ran].innerHTML = "O";
+                    break;
+                } else {
+                    if (!checked.includes(ran)) {
+                        checked.push(ran);
+                    }
+                }
+                if (arr.length == checked.length) {
+                    alert("Game Over!");
+                    break;
+                }
+            }
+        }
+        function Restart() {
+            column = document.getElementsByClassName("grid-item");
+            let arr = [0,
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8];
+            arr.forEach(function(x) {
+                column[x].innerHTML = x+1;
+            });
+            alert("Game Restarted. Enjoy!");
+        }
+        function add(x) {
+            let column;
+            column = document.getElementsByClassName("grid-item");
+            if (column[x].innerHTML != "O" && column[x].innerHTML != "X") {
+                column[x].innerHTML = "X";
+                machine();
+                winner();
+                if (output == true) {
+                    if (confirm("Do You Want To Restart?") == true) {
+                        setTimeout(Restart, 1500);
+                        output = false;
+                    } else {
+                        alert("Restart Canceled!");
+                    }
+                }
+            }
+        }
+    </script>
+</body>
+</html>
